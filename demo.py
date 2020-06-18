@@ -76,10 +76,10 @@ if __name__ == "__main__":
     monoPitch = pYinInst.getSmoothedPitchTrack()
 
     # output smoothed pitch track
-    print 'pitch track'
+    print('pitch track')
     for ii in fs.m_oSmoothedPitchTrack:
-        print ii.values
-    print '\n'
+        print(ii.values)
+    print('\n')
 
     fs = pYinInst.getRemainingFeatures(monoPitch)
 
@@ -87,19 +87,19 @@ if __name__ == "__main__":
     # column 0: frame number,
     # column 1: pitch in midi numuber, this is the decoded pitch
     # column 2: attack 1, stable 2, silence 3
-    print 'mono note decoded pitch'
+    print('mono note decoded pitch')
     for ii in fs.m_oMonoNoteOut:
-        print ii.frameNumber, ii.pitch, ii.noteState
-    print '\n'
+        print(ii.frameNumber, ii.pitch, ii.noteState)
+    print('\n')
 
-    print 'note pitch tracks'
+    print('note pitch tracks')
     for ii in fs.m_oNotePitchTracks:
-        print ii
-    print '\n'
+        print(ii)
+    print('\n')
 
     # median pitch in Hz of the notes
-    print 'median note pitch'
+    print('median note pitch')
     for ii in fs.m_oNotes:
-        print ii.values
-    print '\n'
+        print(ii.values)
+    print('\n')
 

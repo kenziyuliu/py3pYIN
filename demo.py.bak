@@ -38,22 +38,23 @@
 '''
 
 import os, sys
+dir = os.path.dirname(os.path.realpath(__file__))
+srcpath = dir+'/src'
+sys.path.append(srcpath)
+
 import pYINmain
 import essentia.standard as ess
 import numpy as np
 from YinUtil import RMS
 
-def pYINPtNote(filename1,fs=44100,frameSize=2048,hopSize=256):
+if __name__ == "__main__":
 
-    '''
-    Given filename, return pitchtrack and note transcription track
-    :param filename1:
-    :param fs:
-    :param frameSize:
-    :param hopSize:
-    :return:
-    '''
     # initialise
+    filename1 = srcpath + '/testAudioLong.wav'
+    fs = 44100
+    frameSize = 2048
+    hopSize = 256
+
     pYinInst = pYINmain.PyinMain()
     pYinInst.initialise(channels = 1, inputSampleRate = fs, stepSize = hopSize, blockSize = frameSize,
                    lowAmp = 0.25, onsetSensitivity = 0.7, pruneThresh = 0.1)
@@ -75,10 +76,10 @@ def pYINPtNote(filename1,fs=44100,frameSize=2048,hopSize=256):
     monoPitch = pYinInst.getSmoothedPitchTrack()
 
     # output smoothed pitch track
-    print('pitch track')
+    print 'pitch track'
     for ii in fs.m_oSmoothedPitchTrack:
-        print(ii.values)
-    print('\n')
+        print ii.values
+    print '\n'
 
     fs = pYinInst.getRemainingFeatures(monoPitch)
 
@@ -86,18 +87,19 @@ def pYINPtNote(filename1,fs=44100,frameSize=2048,hopSize=256):
     # column 0: frame number,
     # column 1: pitch in midi numuber, this is the decoded pitch
     # column 2: attack 1, stable 2, silence 3
-    print('mono note decoded pitch')
+    print 'mono note decoded pitch'
     for ii in fs.m_oMonoNoteOut:
-        print(ii.frameNumber, ii.pitch, ii.noteState)
-    print('\n')
+        print ii.frameNumber, ii.pitch, ii.noteState
+    print '\n'
 
-    print('note pitch tracks')
+    print 'note pitch tracks'
     for ii in fs.m_oNotePitchTracks:
-        print(ii)
-    print('\n')
+        print ii
+    print '\n'
 
     # median pitch in Hz of the notes
-    print('median note pitch')
+    print 'median note pitch'
     for ii in fs.m_oNotes:
-        print(ii.values)
-    print('\n')
+        print ii.values
+    print '\n'
+

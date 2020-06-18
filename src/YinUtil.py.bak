@@ -17,10 +17,9 @@ def slowDifference(input, yinBufferSize):
     return yinBuffer
 
 def fastDifference(input, yinBufferSize):
-    # 2to3 fix
-    yinBufferSize = int(yinBufferSize)
 
     frameSize = 2 * yinBufferSize
+
     # DECLARE AND INITIALISE
     yinBuffer = np.zeros((yinBufferSize,), dtype=np.float64)
     powerTerms = np.zeros((yinBufferSize,), dtype=np.float64)
@@ -69,7 +68,7 @@ def cumulativeDifference(yinBuffer ,yinBufferSize):
     yinBuffer[0] = 1.0
     runningSum = 0.0
 
-    for tau in range(1, int(yinBufferSize)):
+    for tau in range(1, yinBufferSize):
         runningSum += yinBuffer[tau]
         if runningSum == 0:
             yinBuffer[tau] = 1
@@ -88,7 +87,6 @@ single15 = [0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00
 single20 = [0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000,0.00000]
 
 def yinProb(yinBuffer, prior, yinBufferSize, minTau0, maxTau0):
-    yinBufferSize  = int(yinBufferSize)
 
     minTau = 2
     maxTau = yinBufferSize
@@ -157,7 +155,7 @@ def yinProb(yinBuffer, prior, yinBufferSize, minTau0, maxTau0):
             tau += 1
 
     if peakProb[minInd] > 1:
-        print("WARNING: yin has prob > 1 ??? I'm returning all zeros instead.")
+        print "WARNING: yin has prob > 1 ??? I'm returning all zeros instead."
         return np.zeros((yinBufferSize,), dtype=np.float64)
 
     nonPeakProb = 1.0
@@ -192,14 +190,13 @@ def parabolicInterpolation(yinBuffer, tau, yinBufferSize):
 
         betterTau = tau + adjustment
     else:
-        print("WARNING: can't do interpolation at the edge (tau = " + str(tau) + "), will return un-interpolated value.\n")
+        print "WARNING: can't do interpolation at the edge (tau = " + str(tau) + "), will return un-interpolated value.\n"
         betterTau = tau
 
     return betterTau
 
 def sumSquare(input, start, end):
     out = 0.0
-    start, end = int(start), int(end)
     for i in range(start,end):
         out += input[i] * input[i]
 

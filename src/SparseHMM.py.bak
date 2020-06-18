@@ -109,7 +109,7 @@ class SparseHMM(object):
                     delta[iState] = 0
                 scale = np.append(scale, np.double(1.0/deltasum))
             else:
-                print("WARNING: Viterbi has been fed some zero probabilities, at least they become zero at frame " +  str(iFrame) + " in combination with the model.")
+                print "WARNING: Viterbi has been fed some zero probabilities, at least they become zero at frame " +  str(iFrame) + " in combination with the model."
                 for iState in range(nState):
                     oldDelta[iState] = 1.0/nState
                     delta[iState] = 0
@@ -123,7 +123,7 @@ class SparseHMM(object):
                 bestValue = currentValue #  rabiner 34b
                 path[nFrame-1] = iState #  path of last frame
 
-        for iFrame in reversed(list(range(nFrame-1))):
+        for iFrame in reversed(range(nFrame-1)):
             path[iFrame] = psi[iFrame+1][path[iFrame+1]]
 
         return path, scale
